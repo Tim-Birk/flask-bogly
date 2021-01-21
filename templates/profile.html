@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block title %}User Profile{%
+endblock %} {% block content %}
+
+<a href="/">Back</a>
+
+<div class="row mt-4">
+    <div class="col-sm-4 col-md-3">
+        <a href="{{user.image_url}}" target="blank">
+            <img id="profile-picture" src="{{user.image_url}}"
+                alt="Profile picture for {{user.first_name}} {{user.last_name}}" class="img-thumbnail"></a>
+    </div>
+
+    <div class="col-sm-8 col-md-9">
+        <div class="row d-flex flex-column ml-2">
+            <h2>{{user.get_full_name()}}</h2>
+            <div class="row d-flex ml-1">
+                <a class="btn btn-primary" href="/users/{{user.id}}/edit">Edit</a>
+                <form action="/users/{{user.id}}/delete" class="ml-2" method="POST">
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

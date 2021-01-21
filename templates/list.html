@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %}Users{%
+endblock %} {% block content %}
+<table id="users-table" class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Last</th>
+            <th scope="col">First</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.last_name}}</td>
+            <td>{{user.first_name}}</td>
+            <td><a class='btn btn-sm btn-primary' href='/users/{{user.id}}'>Details</a></td>
+        </tr>
+        {% endfor %}
+</table>
+<a class="btn btn-primary" href="/users/new">Add</a>
+
+{% endblock %}

@@ -1,4 +1,7 @@
+import datetime
 from flask_sqlalchemy import SQLAlchemy
+from pytz import timezone
+tz = timezone('EST')
 
 db = SQLAlchemy()
 
@@ -34,3 +37,33 @@ class User(db.Model):
         """Return users full name"""
 
         return f"{self.first_name} {self.last_name}"
+
+class Post(db.Model):
+    """Post."""
+
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    title = db.Column(db.String(),
+                     nullable=False)
+    content = db.Column(db.String(),
+                     nullable=False)
+    created_at = db.Column(db.DateTime,
+                     nullable=False, default=datetime.datetime.now(tz))
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'))
+    
+    user = db.relationship( 'User', backref='posts')
+
+    def __repr__(self):
+        """Show info about post."""
+
+        p = self
+        return f"<Post - id: {p.id},  title: {p.title}>"
+    
+    def show_est_formatted_date(self):
+        """Show a formatted date in Eastern time"""
+        return self.created_at.strftime("%b %d %Y %I:%M:%S %p")

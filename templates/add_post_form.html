@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block title %}Add Post for {{user.get_full_name()}}{%
+endblock %} {% block content %}
+<form id="new-post-form" class="post-form mt-4" action="/users/{{user.id}}/posts/new" method="POST">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" id="title" required />
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea class="form-control" id="content" name='content' rows="8"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a class='btn btn-outline-danger' href='/users/{{user.id}}'>Cancel</a>
+</form>
+{% endblock %}

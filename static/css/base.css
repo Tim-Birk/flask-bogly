@@ -1,7 +1,26 @@
 #users-table {
-   max-width: 400px;
+    max-width: 400px;
 }
 
 .user-form {
     max-width: 350px;
+}
+
+.post-form {
+    max-width: 90%;
+}
+
+.flash {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.error {
+    background-color: rgb(248, 209, 209);
+    color: rgb(151, 0, 0);
+}
+
+.success {
+    background-color: rgb(212, 255, 225);
+    color: rgb(5, 49, 0);
 }

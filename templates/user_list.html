@@ -1,12 +1,11 @@
-{% extends 'base.html' %} {% block title %}Users{%
-endblock %} {% block content %}
+{% extends 'base.html' %} {% block title %}Users{% endblock %} {% block content %}
 <table id="users-table" class="table table-striped">
     <thead>
         <tr>
             <th scope="col">id</th>
             <th scope="col">Last</th>
             <th scope="col">First</th>
-            <th scope="col">Edit</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +18,4 @@ endblock %} {% block content %}
         </tr>
         {% endfor %}
 </table>
-<a class="btn btn-primary" href="/users/new">Add</a>
-
-{% endblock %}
+<a class="btn btn-primary" href="/users/new">Add</a> {% endblock %}

@@ -5,7 +5,6 @@ tz = timezone('EST')
 
 db = SQLAlchemy()
 
-
 def connect_db(app):
     """Connect to database."""
 
@@ -26,6 +25,8 @@ class User(db.Model):
                      nullable=False)
     image_url = db.Column(db.String(),
                      nullable=False, default='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg')
+
+    posts = db.relationship('Post', backref='user', cascade="all, delete", passive_deletes=True)
 
     def __repr__(self):
         """Show info about user."""
@@ -54,9 +55,10 @@ class Post(db.Model):
                      nullable=False, default=datetime.datetime.now(tz))
     user_id = db.Column(
         db.Integer,
-        db.ForeignKey('users.id'))
+        db.ForeignKey('users.id', ondelete="cascade"))
     
-    user = db.relationship( 'User', backref='posts')
+    tags = db.relationship('Tag', secondary='post_tag', backref='posts')
+    posttags = db.relationship('PostTag', backref='post', cascade="all, delete", passive_deletes=True)
 
     def __repr__(self):
         """Show info about post."""
@@ -67,3 +69,47 @@ class Post(db.Model):
     def show_est_formatted_date(self):
         """Show a formatted date in Eastern time"""
         return self.created_at.strftime("%b %d %Y %I:%M:%S %p")
+
+class Tag(db.Model):
+    """Tag."""
+
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    name = db.Column(db.String(50),
+                     nullable=False,
+                     unique=True)
+    
+    posttags = db.relationship('PostTag', backref='tag', cascade="all, delete", passive_deletes=True)
+
+    def __repr__(self):
+        """Show info about tag."""
+
+        t = self
+        return f"<Tag - id: {t.id},  name: {t.name}>"
+
+class PostTag(db.Model):
+    """PostTag."""
+
+    __tablename__ = "post_tag"
+
+    postid = db.Column(db.Integer,
+                   db.ForeignKey("posts.id", ondelete="cascade"),
+                   primary_key=True)
+    tagid = db.Column(db.Integer,
+                   db.ForeignKey("tags.id", ondelete="cascade"),
+                   primary_key=True)
+    
+
+    def __repr__(self):
+        """Show info about post/tag relationship."""
+
+        p = self
+        return f"<PostTag - postid: {p.postid},  tagid: {p.tagid}>"
+
+
+
+
+    

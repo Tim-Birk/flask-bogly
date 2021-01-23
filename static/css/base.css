@@ -1,13 +1,19 @@
-#users-table {
+#users-table,
+#tag-list {
     max-width: 400px;
 }
 
-.user-form {
+.user-form,
+.tag-form {
     max-width: 350px;
 }
 
 .post-form {
     max-width: 90%;
+}
+
+.tag-select {
+    columns: 2;
 }
 
 .flash {

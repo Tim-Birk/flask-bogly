@@ -1,6 +1,6 @@
 """Seed file to make sample data for blogly db."""
 
-from models import User, Post, db
+from models import User, Post, PostTag, Tag, db
 from app import app
 
 # Create all tables
@@ -8,8 +8,10 @@ db.drop_all()
 db.create_all()
 
 # If tables aren't empty, empty them
-User.query.delete()
+PostTag.query.delete()
+Tag.query.delete()
 Post.query.delete()
+User.query.delete()
 
 # Add users
 tim = User(first_name='Tim', last_name='Kenney', image_url="https://scontent-lga3-2.xx.fbcdn.net/v/t1.0-9/56649400_10103839445921552_8360508541538140160_o.jpg?_nc_cat=108&ccb=2&_nc_sid=09cbfe&_nc_ohc=0DtIqNDxcWUAX9DPHS3&_nc_ht=scontent-lga3-2.xx&oh=6b442d20b854446518da446bc822f850&oe=602F3F1E")
@@ -36,6 +38,48 @@ db.session.add(post2)
 db.session.add(post3)
 db.session.add(post4)
 
-# Commit--otherwise, this never gets saved!
 db.session.commit()
 
+# Add tags
+tag1 = Tag(name='Beer')
+tag2 = Tag(name='Music')
+tag3 = Tag(name='Sports')
+tag4 = Tag(name='Dogs')
+tag5 = Tag(name='Food')
+tag6 = Tag(name='Tech')
+tag7 = Tag(name='Bread')
+tag8 = Tag(name='Boats')
+
+# Add new objects to session, so they'll persist
+db.session.add(tag1)
+db.session.add(tag2)
+db.session.add(tag3)
+db.session.add(tag4)
+db.session.add(tag5)
+db.session.add(tag6)
+db.session.add(tag7)
+db.session.add(tag8)
+
+db.session.commit()
+
+# Add tags
+posttag1 = PostTag(postid=1, tagid=2)
+posttag2 = PostTag(postid=1, tagid=7)
+posttag3 = PostTag(postid=2, tagid=1)
+posttag4 = PostTag(postid=2, tagid=3)
+posttag5 = PostTag(postid=2, tagid=8)
+posttag6 = PostTag(postid=3, tagid=6)
+posttag7 = PostTag(postid=4, tagid=2)
+posttag8 = PostTag(postid=4, tagid=3)
+
+# Add new objects to session, so they'll persist
+db.session.add(posttag1)
+db.session.add(posttag2)
+db.session.add(posttag3)
+db.session.add(posttag4)
+db.session.add(posttag5)
+db.session.add(posttag6)
+db.session.add(posttag7)
+db.session.add(posttag8)
+
+db.session.commit()

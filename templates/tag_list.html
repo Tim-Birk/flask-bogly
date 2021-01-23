@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block title %}Tags{% endblock %} {% block content %}
+
+<ul id="tag-list" class="list-group my-3">
+    {% for tag in tags %}
+    <tr>
+        <td></td>
+        <li class="list-group-item"><a class='' href='/tags/{{tag.id}}'>{{tag.name}}</a></li>
+    </tr>
+    {% endfor %}
+</ul>
+<a class="btn btn-primary" href="/tags/new">Add</a> {% endblock %}
